@@ -6,6 +6,7 @@ import axios from 'axios';
 const JobsList = () => {
 
     const [state, setState] = useState([]);
+    const [cargando, setCargando] = useState(false);
 
     const [inputs, setInputs] = useState({});
     const [errors, setErrors] = useState("");
@@ -22,13 +23,11 @@ const JobsList = () => {
       event.preventDefault();
       const { error } = validate();
       if (!error) {
-        console.log("Form submitted");
-        console.log(inputs);
-        /* console.log(state.offers); */
+        setCargando(true);
         axios.post('/offers/postOffer', inputs)
         .then(function (res) {
-          console.log("bien");
           getData();
+          setCargando(false);
         }
         );
         
@@ -47,13 +46,6 @@ const JobsList = () => {
     };
 
   useEffect(() => {
-    /* const url = "/offers";
-    fetch(url)
-      .then(res => {
-        return res.json();
-      }).then(offers => {
-        setState({ offers })
-      }); */
       getData();
   },[])
 
@@ -74,46 +66,51 @@ const JobsList = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">name</label>
+          <label htmlFor="name">Name  </label>
           <input
             type="text"
             id="name"
             name="name"
             onChange={handleInputChange}
+            required
           />
         </div>
 
         <div>
-          <label htmlFor="company">Company</label>
+          <label htmlFor="company">Company  </label>
           <input
             type="text"
             id="company"
             name="company"
             onChange={handleInputChange}
+            required
           />
         </div>
 
         <div>
-          <label htmlFor="salary">Salary</label>
+          <label htmlFor="salary">Salary  </label>
           <input
             type="text"
             id="salary"
             name="salary"
             onChange={handleInputChange}
+            required
           />
         </div>
 
         <div>
-          <label htmlFor="city">City</label>
+          <label htmlFor="city">City  </label>
           <input
             type="text"
             id="city"
             name="city"
             onChange={handleInputChange}
+            required
           />
         </div>
         <button type="submit">Create</button>
       </form>
+      {cargando?(<p>Cargando...</p>):<></>}
     </div>
     </div>):<></>
   )
