@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
-const url = 'mongodb+srv://adminISIS:MmS5egb1Snz11GCI@retointegracion.i1v0y.mongodb.net/job?retryWrites=true&w=majority';
+const url = process.env.mongourl;
 
 
 function MongoUtils() {
